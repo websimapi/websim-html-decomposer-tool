@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Decomposer Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Import Maps for external libraries -->
+    <script type="importmap">
+        {
+            "imports": {
+                "jszip": "https://esm.sh/jszip@3.10.1",
+                "file-saver": "https://esm.sh/file-saver@2.0.5"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>HTML Refactor Tool</h1>
+            <p>Decompose monolithic HTML into modular projects.</p>
+        </header>
+
+        <main>
+            <div class="panel input-panel">
+                <div class="file-drop-area" id="dropZone">
+                    <p class="file-msg">Drag & Drop .html file here or click to upload</p>
+                    <input type="file" id="fileInput" accept=".html,.htm">
+                </div>
+                
+                <div class="manual-input">
+                    <label for="htmlInput">Or paste HTML code:</label>
+                    <textarea id="htmlInput" placeholder="<html>...</html>"></textarea>
+                </div>
+            </div>
+
+            <div class="panel controls-panel">
+                <h2>Configuration</h2>
+                
+                <div class="control-group">
+                    <h3>CSS Strategy</h3>
+                    <label class="radio-label">
+                        <input type="radio" name="cssStrategy" value="merge" checked>
+                        Merge into single style.css
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="cssStrategy" value="split">
+                        Split (preserve &lt;style&gt; blocks)
+                    </label>
+                </div>
+
+                <div class="control-group">
+                    <h3>JS Strategy</h3>
+                    <label class="radio-label">
+                        <input type="radio" name="jsStrategy" value="merge" checked>
+                        Merge into single app.js
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="jsStrategy" value="split">
+                        Split (preserve &lt;script&gt; blocks)
+                    </label>
+                </div>
+
+                <div class="control-group extreme-group">
+                    <h3>Special Modes</h3>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="extremeMode">
+                        <span class="highlight">Extreme Mode</span>: Convert HTML Body to JS
+                    </label>
+                    <small>Extracts body content and injects it dynamically via JavaScript.</small>
+                </div>
+
+                <button id="processBtn" class="action-btn">Refactor & Download ZIP</button>
+            </div>
+
+            <div class="panel status-panel">
+                <h2>Status Log</h2>
+                <div id="statusLog" class="log-container">
+                    <div class="log-entry">Waiting for input...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="app.js"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
+
