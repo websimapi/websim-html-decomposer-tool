@@ -34,6 +34,11 @@ dropZone.addEventListener('drop', (e) => {
     }
 });
 
+// Make the whole drop zone clickable/tappable to open the file picker
+dropZone.addEventListener('click', () => {
+    fileInput.click();
+});
+
 fileInput.addEventListener('change', (e) => {
     if (e.target.files.length) {
         handleFile(e.target.files[0]);
@@ -75,18 +80,17 @@ processBtn.addEventListener('click', async () => {
 // --- Helpers ---
 
 function handleFile(file) {
-    if (file.type !== "text/html" && !file.name.endsWith('.html') && !file.name.endsWith('.htm')) {
-        addLog("Error: Please upload a valid .html file", "error");
-        return;
-    }
-
-    fileMsg.textContent = `Selected: ${file.name} (${formatBytes(file.size)})`;
-    addLog(`File loaded: ${file.name}`, "info");
+    // Accept any file and try to read it as text; HTML validation will happen in the engine
+    fileMsg.textContent = `Selected: ${file.name || 'File'} (${formatBytes(file.size)})`;
+    addLog(`File loaded: ${file.name || 'Unnamed file'}`, "info");
 
     const reader = new FileReader();
     reader.onload = (e) => {
         htmlInput.value = e.target.result;
         addLog("HTML content loaded into editor.", "success");
+    };
+    reader.onerror = () => {
+        addLog("Error reading file. Please try again with a valid text/HTML file.", "error");
     };
     reader.readAsText(file);
 }
